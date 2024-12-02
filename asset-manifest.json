@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/task-manager-chat/static/css/main.1a7dc1cb.css",
+    "main.js": "/task-manager-chat/static/js/main.8b57bba4.js",
+    "index.html": "/task-manager-chat/index.html",
+    "main.1a7dc1cb.css.map": "/task-manager-chat/static/css/main.1a7dc1cb.css.map",
+    "main.8b57bba4.js.map": "/task-manager-chat/static/js/main.8b57bba4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1a7dc1cb.css",
+    "static/js/main.8b57bba4.js"
+  ]
+}
