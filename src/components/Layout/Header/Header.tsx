@@ -1,13 +1,19 @@
-import React, { forwardRef } from "react";
-import styles from "./Header.module.css";
+import React from "react";
+import styles from "@components/Layout/Header/Header.module.css";
 
-const Header = forwardRef<HTMLDivElement>((props, ref) => {
+interface HeaderProps {
+  toggleSidebar: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   return (
-    <header ref={ref} className={styles.header}>
+    <header className={styles.header}>
+      <button className={styles.menuButton} onClick={toggleSidebar}>
+        ☰
+      </button>
       <h1>Task Manager Chat</h1>
     </header>
   );
-});
+};
 
-Header.displayName = "Header";
 export default Header;

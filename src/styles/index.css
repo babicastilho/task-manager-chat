@@ -1,3 +1,19 @@
+:root {
+  --primary-color: #f8f8f8; /* Cor de fundo principal (claro) */
+  --secondary-color: #e0e0e0; /* Fundo da sidebar (claro) */
+  --text-color: #333333; /* Texto (claro) */
+  --header-footer-color: #f8f8f8; /* Fundo do Header e Footer (claro) */
+  --border-color: rgba(0, 0, 0, 0.1); /* Bordas e sombras (claro) */
+}
+
+[data-theme="dark"] {
+  --primary-color: #1a202c; /* Fundo principal (escuro) */
+  --secondary-color: #2d3748; /* Fundo da sidebar (escuro) */
+  --text-color: #f8f8f8; /* Texto (escuro) */
+  --header-footer-color: #2d3748; /* Fundo do Header e Footer (escuro) */
+  --border-color: rgba(255, 255, 255, 0.1); /* Bordas e sombras (escuro) */
+}
+
 /* Resetting body margins and padding */
 body {
   margin: 0; /* Remove default margin */

@@ -1,13 +1,12 @@
-import React, { forwardRef } from "react";
-import styles from "./Footer.module.css";
+import React from "react";
+import styles from "@components/Layout/Footer/Footer.module.css";
 
-const Footer = forwardRef<HTMLDivElement>((props, ref) => {
+const Footer: React.FC = () => {
   return (
-    <footer ref={ref} className={styles.footer}>
-      <p>© 2024 Task Manager Chat. All rights reserved.</p>
+    <footer className={styles.footer}>
+      © 2024 Task Manager Chat. All rights reserved.
     </footer>
   );
-});
+};
 
-Footer.displayName = "Footer";
 export default Footer;

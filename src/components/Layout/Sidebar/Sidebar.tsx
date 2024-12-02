@@ -1,23 +1,24 @@
-import React, { useState } from 'react';
-import styles from './Sidebar.module.css';
+import React from "react";
+import styles from "@components/Layout/Sidebar/Sidebar.module.css";
 
-const Sidebar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface SidebarProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
   return (
-    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
       <button className={styles.closeButton} onClick={toggleSidebar}>
         ×
       </button>
-      <ul>
-        <li>Dashboard</li>
-        <li>Tasks</li>
-        <li>Settings</li>
-      </ul>
+      <nav>
+        <ul>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/tasks">Tasks</a></li>
+          <li><a href="/settings">Settings</a></li>
+        </ul>
+      </nav>
     </aside>
   );
 };
