@@ -18,6 +18,8 @@
 .env.test.local
 .env.production.local
 
+generate-structures.js
+project-structure.md
 teste.pdf
 
 npm-debug.log*

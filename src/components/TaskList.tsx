@@ -1,5 +1,5 @@
-import { fetchTasks, saveTask, deleteTask } from '../../services/api';
 import { useEffect, useState } from 'react';
+import { fetchTasks, saveTask, deleteTask } from '@services/api';
 import styles from './TaskList.module.css';
 
 type Task = {
@@ -8,7 +8,7 @@ type Task = {
   completed: boolean;
 };
 
-export const TaskList = () => {
+const TaskList = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
@@ -46,3 +46,5 @@ export const TaskList = () => {
     </div>
   );
 };
+
+export default TaskList;
