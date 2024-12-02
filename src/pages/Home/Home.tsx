@@ -1,7 +1,7 @@
 import React from 'react';
-import TaskList from '@components/TaskList';
+import TaskList from '@components/Tasks/TaskList/TaskList';
 
-import Chat from '@chat/Chat';
+import Chat from '@components/Chat/Chat/Chat';
 import styles from './Home.module.css';
 
 const Home = () => {

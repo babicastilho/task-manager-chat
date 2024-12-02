@@ -1,0 +1,48 @@
+/* Layout.module.css */
+.layout {
+  display: flex; /* Organiza Sidebar e MainContent lado a lado */
+  min-height: 100vh; /* Garante que a altura total do layout seja sempre 100% da viewport */
+  flex-direction: column; /* Organização vertical para Header, Main e Footer */
+}
+
+.header {
+  height: 60px; /* Defina a altura fixa do Header */
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.mainContainer {
+  display: flex; /* Sidebar e conteúdo principal lado a lado */
+  flex: 1; /* Ocupar todo o espaço restante entre Header e Footer */
+  overflow: hidden; /* Impede o overflow */
+}
+
+.sidebar {
+  width: 250px; /* Largura fixa da Sidebar */
+  background-color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  flex: 1; /* Garante que o conteúdo principal ocupe o espaço restante */
+  padding: 1rem;
+  overflow-y: auto; /* Permite rolagem apenas no conteúdo */
+}
+
+.footer {
+  height: 40px; /* Altura fixa */
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.9rem;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}

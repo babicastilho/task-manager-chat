@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,14 +18,14 @@
     "baseUrl": "src",
     "paths": {
       "@components/*": ["components/*"],
+      "@components/Layout/*": ["components/Layout/*"],
+      "@components/Tasks/*": ["components/Tasks/*"],
+      "@components/Common/*": ["components/Common/*"],
+      "@components/Chat/*": ["components/Chat/*"],
       "@services/*": ["services/*"],
-      "@chat/*": ["Chat/*"],
       "@pages/*": ["pages/*"],
-      "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"]
+      "@styles/*": ["styles/*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
