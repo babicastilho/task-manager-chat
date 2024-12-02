@@ -1,0 +1,35 @@
+.sidebar {
+  width: 250px; /* Largura fixa da Sidebar */
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 2px 0 4px var(--border-color);
+  transform: translateX(-100%); /* Oculta a Sidebar por padrão em telas pequenas */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  height: 100%; /* Ocupa toda a altura do .mainContainer */
+  position: absolute; /* Remove do fluxo do layout */
+  top: 0;
+  left: 0;
+}
+
+.open {
+  transform: translateX(0); /* Mostra a Sidebar */
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    width: 250px; /* Largura fixa */
+    transform: translateX(0); /* Sidebar visível em telas maiores */
+    position: relative; /* Retorna ao fluxo do layout */
+    box-shadow: none; /* Remove a sombra */
+    height: auto; /* Permite que a altura seja ajustada dinamicamente */
+    flex: 0 0 250px; /* Garante a largura fixa no layout flex */
+  }
+
+  .open {
+    position: relative; /* Sidebar no fluxo do layout no desktop */
+  }
+}

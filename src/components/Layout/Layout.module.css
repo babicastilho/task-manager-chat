@@ -1,0 +1,24 @@
+.layout {
+  display: flex;
+  flex-direction: column; /* Organização vertical */
+  min-height: 100vh; /* Altura total da tela */
+  background-color: var(--primary-color); /* Fundo adaptável */
+  color: var(--text-color); /* Texto adaptável */
+}
+
+.mainContainer {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  min-height: calc(100vh - 100px); /* Ajusta para Header (60px) e Footer (40px) */
+}
+
+
+.content {
+  flex: 1; /* Ocupa espaço restante */
+  padding: 1rem;
+  overflow-y: auto; /* Rola apenas o conteúdo */
+  background-color: var(--primary-color); /* Fundo adaptável */
+  color: var(--text-color); /* Texto adaptável */
+}
