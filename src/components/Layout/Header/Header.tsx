@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "@context/ThemeContext";
+import { useTheme } from "../../../context/ThemeContext";
 import styles from "./Header.module.css";
 
 import { FaSun } from "react-icons/fa";
@@ -14,10 +14,10 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className={styles.header}>
-      <h1>Task Manager Chat</h1>
+    <header className={styles.header} data-testid="header">
+      <h1 data-cy="header-title" data-testid="header-title">Task Manager Chat</h1>
       <div className={styles.actions}>
-        {/* Botão de alternância de tema - Exibido apenas em telas maiores */}
+        {/* Botão de alternância de tema */}
         <button
           onClick={toggleTheme}
           className={`${styles.actionButton} ${styles.themeButton}`}
@@ -27,7 +27,7 @@ const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
           {theme === "light" ? <FaSun className={styles.icon} /> : <BsFillMoonStarsFill className={styles.icon} />}
         </button>
 
-        {/* Botão de menu - Exibido apenas em telas menores */}
+        {/* Botão de menu */}
         <button
           onClick={toggleSidebar}
           className={`${styles.actionButton} ${styles.menuButton}`}

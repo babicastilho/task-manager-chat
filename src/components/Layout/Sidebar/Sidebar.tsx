@@ -1,5 +1,5 @@
 import React from "react";
-import { useTheme } from "@context/ThemeContext";
+import { useTheme } from "../../../context/ThemeContext";
 import styles from "./Sidebar.module.css";
 import { FaSun } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
@@ -13,8 +13,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-      {/* Botão de fechar a sidebar */}
+    <aside
+      className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}
+      data-cy="sidebar"
+      data-testid="sidebar"
+    >
+      {/* Close Sidebar Button */}
       <button
         className={styles.closeButton}
         onClick={toggleSidebar}
@@ -24,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         ×
       </button>
 
-      {/* Botão de alternância de tema */}
+      {/* Theme Toggle Button */}
       <button
         className={`${styles.actionButton} ${styles.themeButton}`}
         onClick={toggleTheme}
@@ -36,21 +40,25 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         ) : (
           <BsFillMoonStarsFill className={styles.icon} />
         )}
-        <span className={styles.text}>
+        <span
+          className={styles.text}
+          data-cy="theme-label"
+          data-testid="theme-label"
+        >
           {theme === "light" ? "Light Mode" : "Dark Mode"}
         </span>
       </button>
 
-      {/* Navegação */}
+      {/* Navigation */}
       <nav>
-        <ul>
-          <li>
+        <ul data-cy="nav-list" data-testid="nav-list">
+          <li data-cy="nav-item-dashboard" data-testid="nav-item-dashboard">
             <a href="/dashboard">Dashboard</a>
           </li>
-          <li>
+          <li data-cy="nav-item-tasks" data-testid="nav-item-tasks">
             <a href="/tasks">Tasks</a>
           </li>
-          <li>
+          <li data-cy="nav-item-settings" data-testid="nav-item-settings">
             <a href="/settings">Settings</a>
           </li>
         </ul>
