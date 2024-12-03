@@ -54,7 +54,7 @@ const TasksPage = () => {
         // Adicionar uma nova tarefa
         const newTask = await saveTask({
           ...task,
-          id: Date.now().toString(), // Gera um novo ID
+          id: "new-task-id", // Certifique-se de que o ID é consistente
           completed: false,
         });
         setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -63,7 +63,7 @@ const TasksPage = () => {
     } catch (err) {
       setError("Failed to save the task.");
     }
-  }; 
+  };        
 
   const closeModal = () => {
     setShowModal(false);

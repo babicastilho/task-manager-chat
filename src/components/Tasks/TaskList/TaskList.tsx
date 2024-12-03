@@ -17,7 +17,12 @@ interface TaskListProps {
 const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete, onEdit }) => {
   return (
     <ul data-cy="task-list" data-testid="task-list">
-      {tasks.map((task) => (
+    {tasks.length === 0 ? (
+      <p data-cy="empty-task-message" data-testid="empty-task-message">
+        No tasks available
+      </p>
+    ) : (
+      tasks.map((task) => (
         <li
           key={task.id}
           data-cy={`task-list-item-${task.id}`}
@@ -31,7 +36,9 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete, onEdit
               data-cy={`task-complete-checkbox-${task.id}`}
               data-testid={`task-complete-checkbox-${task.id}`}
             />
-            <span>{task.title}</span>
+            <span data-cy={`task-title-${task.id}`} data-testid={`task-title-${task.id}`}>
+              {task.title}
+            </span>
           </div>
           <button
             onClick={() => onEdit(task)}
@@ -48,8 +55,9 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete, onEdit
             Delete
           </button>
         </li>
-      ))}
-    </ul>
+      ))
+    )}
+  </ul>  
   );
 };
 
