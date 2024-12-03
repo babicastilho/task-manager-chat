@@ -1,24 +1,82 @@
 .header {
-  height: 60px; /* Altura fixa */
-  background-color: var(--header-footer-color); /* Cor adaptada para dark/light */
+  height: 60px;
+  background-color: var(--header-footer-color);
+  color: var(--text-color);
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Espaçamento entre elementos */
+  justify-content: space-between;
   padding: 0 1rem;
-  box-shadow: 0 2px 4px var(--border-color); /* Sombras variáveis */
+  box-shadow: 0 2px 4px var(--border-color);
   z-index: 1000;
 }
 
-.menuButton {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: var(--text-color); /* Texto adaptável */
-  cursor: pointer;
+.header h1 {
+  font-size: 1.5em;
 }
 
-@media (min-width: 768px) {
-  .menuButton {
-    display: none; /* Esconde botão no desktop */
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actionButton:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Botão de tema */
+.themeButton {
+  display: flex; /* Exibido no Header por padrão */
+  align-items: center;
+  justify-content: center;
+}
+
+.themeButton:hover {
+  background-color: var(--border-color);
+}
+
+/* Esconde o botão de tema no Header em telas pequenas */
+@media (max-width: 768px) {
+  .themeButton {
+    display: none;
   }
+}
+
+.menuButton {
+  display: flex; /* Exibe o botão de menu por padrão */
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButton:hover {
+  background-color: var(--secondary-color); /* Diferenciação para menu */
+}
+
+/* Esconde o botão de menu em telas maiores */
+@media (min-width: 769px) {
+  .menuButton {
+    display: none;
+  }
+}
+
+.icon {
+  width: 1.25rem; /* Tamanho consistente dos ícones */
+  height: 1.25rem;
+  margin-right: 0.5rem;
+}
+
+.text {
+  font-size: 0.9rem;
+  font-weight: 500;
 }

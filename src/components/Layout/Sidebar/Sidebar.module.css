@@ -15,6 +15,32 @@
   left: 0;
 }
 
+/* Botão de tema na Sidebar */
+.themeButton {
+  display: none; /* Oculto na Sidebar por padrão */
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.themeButton:hover {
+  background-color: var(--border-color);
+}
+
+/* Exibe o botão de tema na Sidebar em telas pequenas */
+@media (max-width: 768px) {
+  .themeButton {
+    display: flex;
+  }
+}
+
 .open {
   transform: translateX(0); /* Mostra a Sidebar */
 }

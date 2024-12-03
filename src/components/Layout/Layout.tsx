@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "@components/Layout/Header/Header";
 import Sidebar from "@components/Layout/Sidebar/Sidebar";
 import Footer from "@components/Layout/Footer/Footer";
+import { ThemeProvider } from "@context/ThemeContext";
 import styles from "./Layout.module.css";
 
 interface LayoutProps {
@@ -16,6 +17,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   return (
+    <ThemeProvider>
     <div className={styles.layout}>
       <Header toggleSidebar={toggleSidebar} />
       <div className={styles.mainContainer}>
@@ -24,6 +26,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </div>
       <Footer />
     </div>
+    </ThemeProvider>
   );
 };
 
