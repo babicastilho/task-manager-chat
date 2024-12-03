@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchTasks, saveTask, deleteTask } from '@services/api';
+import { fetchTasks, saveTask, deleteTask } from '../../../services/api';
 import styles from './TaskList.module.css';
 
 type Task = {
@@ -27,24 +27,35 @@ const TaskList = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="task-list">
       <input
         type="text"
         placeholder="New Task"
         onKeyDown={(e) => {
           if (e.key === 'Enter') addTask((e.target as HTMLInputElement).value);
         }}
+        data-testid="task-input"
       />
       <ul>
         {tasks.map((task) => (
-          <li key={task.id}>
-            <span className={task.completed ? styles.completed : ''}>{task.title}</span>
-            <button onClick={() => removeTask(task.id)}>Remove</button>
+          <li key={task.id} data-testid={`task-item-${task.id}`}>
+            <span
+              className={task.completed ? styles.completed : ''}
+              data-testid={`task-title-${task.id}`}
+            >
+              {task.title}
+            </span>
+            <button
+              onClick={() => removeTask(task.id)}
+              data-testid={`remove-task-${task.id}`}
+            >
+              Remove
+            </button>
           </li>
         ))}
       </ul>
     </div>
-  );
+  );  
 };
 
 export default TaskList;
