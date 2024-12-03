@@ -53,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
       <nav>
         <ul data-cy="nav-list" data-testid="nav-list">
           <li data-cy="nav-item-dashboard" data-testid="nav-item-dashboard">
-            <a href="/dashboard">Dashboard</a>
+            <a href="/">Dashboard</a>
           </li>
           <li data-cy="nav-item-tasks" data-testid="nav-item-tasks">
             <a href="/tasks">Tasks</a>
