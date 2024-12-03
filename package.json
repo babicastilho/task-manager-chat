@@ -2,7 +2,6 @@
   "name": "task-manager-chat",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://babicastilho.github.io/task-manager-chat",
   "dependencies": {
     "@types/node": "^16.18.121",
     "@types/react": "^18.3.12",

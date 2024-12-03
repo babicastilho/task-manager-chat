@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "@components/Layout/Layout";
 import Home from "@pages/Home/Home";
-import TasksPage from "@pages/Tasks/TasksPage"; // Página de tarefas
+import TasksPage from "@pages/Tasks/TasksPage";
 import "@styles/index.css";
 
 const root = ReactDOM.createRoot(
@@ -15,7 +15,7 @@ root.render(
     <Router>
       <Layout>
         <Routes>
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/tasks" element={<TasksPage />} />
         </Routes>
       </Layout>

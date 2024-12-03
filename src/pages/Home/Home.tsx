@@ -1,12 +1,12 @@
 import React from 'react';
 
-import Chat from '@components/Chat/Chat/Chat';
 import styles from './Home.module.css';
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Chat />
+      <h1>Dashboard</h1>
+      <p>Welcome to the Task Manager Chat Dashboard!</p>
     </div>
   );
 };
