@@ -1,24 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../components/Common/Modal/Modal";
 import TaskList from "../../components/Tasks/TaskList/TaskList";
 import TaskForm from "../../components/Tasks/TaskForm/TaskForm";
-
-interface Task {
-  id: string;
-  title: string;
-  description?: string;
-  completed: boolean;
-}
+import { fetchTasks, saveTask, deleteTask, Task } from "../../services/api";
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", title: "Learn React", description: "Focus on hooks", completed: false },
-    { id: "2", title: "Build a project", description: "Use TypeScript", completed: true },
-  ]);
-
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState<"edit" | "add" | "delete" | null>(null);
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  // Carregar tarefas da API ao inicializar
+  useEffect(() => {
+    const loadTasks = async () => {
+      try {
+        const fetchedTasks = await fetchTasks();
+        setTasks(fetchedTasks);
+      } catch (err) {
+        setError("Failed to load tasks. Please try again later.");
+      }
+    };
+    loadTasks();
+  }, []);
 
   const handleCompleteTask = (id: string) => {
     setTasks((prevTasks) =>
@@ -28,24 +32,38 @@ const TasksPage = () => {
     );
   };
 
-  const handleDeleteTask = (id: string) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    closeModal();
+  const handleDeleteTask = async (id: string) => {
+    try {
+      await deleteTask(id);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      closeModal();
+    } catch (err) {
+      setError("Failed to delete the task.");
+    }
   };
 
-  const handleSaveTask = (task: Task) => {
-    if (task.id) {
-      setTasks((prevTasks) =>
-        prevTasks.map((t) => (t.id === task.id ? { ...t, ...task } : t))
-      );
-    } else {
-      setTasks((prevTasks) => [
-        ...prevTasks,
-        { ...task, id: Date.now().toString(), completed: false },
-      ]);
+  const handleSaveTask = async (task: Task) => {
+    try {
+      if (task.id) {
+        // Atualizar uma tarefa existente
+        const updatedTask = await saveTask(task);
+        setTasks((prevTasks) =>
+          prevTasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)) // Substitui a tarefa existente
+        );
+      } else {
+        // Adicionar uma nova tarefa
+        const newTask = await saveTask({
+          ...task,
+          id: Date.now().toString(), // Gera um novo ID
+          completed: false,
+        });
+        setTasks((prevTasks) => [...prevTasks, newTask]);
+      }
+      closeModal();
+    } catch (err) {
+      setError("Failed to save the task.");
     }
-    closeModal();
-  };
+  }; 
 
   const closeModal = () => {
     setShowModal(false);
@@ -56,6 +74,8 @@ const TasksPage = () => {
   return (
     <div>
       <h1>Task List</h1>
+      {/* Exibir erros, se houver */}
+      {error && <p style={{ color: "red" }}>{error}</p>}
       <button
         onClick={() => {
           setModalType("add");
