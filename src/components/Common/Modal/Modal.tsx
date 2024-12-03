@@ -36,8 +36,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
           <button
             onClick={onClose}
             className={styles.closeButton}
-            data-cy="modal-close"
-            data-testid="modal-close"
+            data-cy="modal-close-button"
+            data-testid="modal-close-button"
           >
             <FaTimes className={styles.icon} />
           </button>
