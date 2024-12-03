@@ -1,72 +1,71 @@
-/**
- * API Mock Service
- * 
- * This file contains mocked implementations for basic task management functionalities:
- * - `fetchTasks`: Retrieves the current list of tasks.
- * - `saveTask`: Adds a new task to the task list.
- * - `deleteTask`: Removes a task from the task list by ID.
- * 
- * Each function simulates an asynchronous operation with a delay to mimic real API behavior.
- */
+// src/services/mockApi.ts
 
-/** Mocked Task List */
-const mockTasks = [
-  { id: '1', title: 'Learn React', completed: false },
-  { id: '2', title: 'Build a project', completed: true },
+export interface Task {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+// Mock inicial de tarefas
+const mockTasks: Task[] = [
+  { id: "1", title: "Learn React", completed: false },
+  { id: "2", title: "Build a project", completed: true },
 ];
+
+// Chave para o LocalStorage
+const LOCAL_STORAGE_KEY = "tasks";
 
 /**
  * Fetch all tasks.
- * 
- * Simulates a GET request to retrieve the current list of tasks.
- * The function returns a promise that resolves with the `mockTasks` array after a delay.
- * 
- * @returns {Promise<typeof mockTasks>} A promise that resolves to the current list of tasks.
+ * Se o LocalStorage estiver vazio, inicializa com as tarefas mockadas.
+ * @returns {Promise<Task[]>} Uma promessa que resolve para a lista de tarefas.
  */
-export const fetchTasks = async (): Promise<typeof mockTasks> => {
+export const fetchTasks = async (): Promise<Task[]> => {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(mockTasks), 300); // Simulates a network delay of 300ms
+    setTimeout(() => {
+      const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (storedTasks) {
+        resolve(JSON.parse(storedTasks)); // Retorna as tarefas do LocalStorage
+      } else {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(mockTasks)); // Inicializa o LocalStorage
+        resolve(mockTasks); // Retorna as tarefas mockadas
+      }
+    }, 300); // Simula um atraso de 300ms
   });
 };
 
 /**
  * Save a new task.
- * 
- * Simulates a POST request to add a new task to the task list.
- * The function pushes the new task into the `mockTasks` array and resolves the promise.
- * 
- * @param {Object} task - The task object to be saved.
- * @param {string} task.id - The unique identifier of the task.
- * @param {string} task.title - The title or description of the task.
- * @param {boolean} task.completed - Whether the task is completed or not.
- * 
- * @returns {Promise<Object>} A promise that resolves with the newly added task.
+ * Salva uma nova tarefa no LocalStorage.
+ * @param {Task} task - A tarefa a ser salva.
+ * @returns {Promise<Task>} A promessa que resolve com a nova tarefa.
  */
-export const saveTask = async (task: { id: string; title: string; completed: boolean }) => {
+export const saveTask = async (task: Task): Promise<Task> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      mockTasks.push(task); // Adds the new task to the mock list
-      resolve(task); // Resolves the promise with the newly added task
-    }, 300); // Simulates a network delay of 300ms
+      const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const tasks = storedTasks ? JSON.parse(storedTasks) : [];
+      tasks.push(task);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(tasks));
+      resolve(task);
+    }, 300);
   });
 };
 
 /**
  * Delete a task.
- * 
- * Simulates a DELETE request to remove a task from the task list.
- * The function removes the task with the specified ID from the `mockTasks` array and resolves the promise.
- * 
- * @param {string} id - The unique identifier of the task to be removed.
- * 
- * @returns {Promise<Object>} A promise that resolves with an empty object upon successful deletion.
+ * Remove uma tarefa do LocalStorage pelo ID.
+ * @param {string} id - O ID da tarefa a ser removida.
+ * @returns {Promise<void>} Uma promessa que resolve quando a tarefa é removida.
  */
-export const deleteTask = async (id: string) => {
+export const deleteTask = async (id: string): Promise<void> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const index = mockTasks.findIndex((task) => task.id === id);
-      if (index > -1) mockTasks.splice(index, 1); // Removes the task if it exists
-      resolve({}); // Resolves with an empty object
-    }, 300); // Simulates a network delay of 300ms
+      const storedTasks = localStorage.getItem(LOCAL_STORAGE_KEY);
+      const tasks = storedTasks ? JSON.parse(storedTasks) : [];
+      const updatedTasks = tasks.filter((task: Task) => task.id !== id);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTasks));
+      resolve();
+    }, 300);
   });
 };
