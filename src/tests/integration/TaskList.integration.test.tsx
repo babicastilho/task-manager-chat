@@ -13,6 +13,7 @@ describe("TaskList Component", () => {
 
   const mockOnComplete = jest.fn();
   const mockOnDelete = jest.fn();
+  const mockOnEdit = jest.fn(); // Adicionando mock para onEdit
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -27,6 +28,7 @@ describe("TaskList Component", () => {
         tasks={mockTasks}
         onComplete={mockOnComplete}
         onDelete={mockOnDelete}
+        onEdit={mockOnEdit} // Passando o mock para onEdit
       />
     );
 
@@ -45,6 +47,7 @@ describe("TaskList Component", () => {
         tasks={mockTasks}
         onComplete={mockOnComplete}
         onDelete={mockOnDelete}
+        onEdit={mockOnEdit}
       />
     );
 
@@ -69,6 +72,7 @@ describe("TaskList Component", () => {
         tasks={mockTasks}
         onComplete={mockOnComplete}
         onDelete={mockOnDelete}
+        onEdit={mockOnEdit}
       />
     );
 
@@ -85,6 +89,7 @@ describe("TaskList Component", () => {
         tasks={mockTasks}
         onComplete={mockOnComplete}
         onDelete={mockOnDelete}
+        onEdit={mockOnEdit}
       />
     );
 
@@ -97,5 +102,22 @@ describe("TaskList Component", () => {
     );
 
     expect(mockOnDelete).toHaveBeenCalledWith("1");
+  });
+
+  it("calls onEdit when the edit button is clicked", async () => {
+    render(
+      <TaskList
+        tasks={mockTasks}
+        onComplete={mockOnComplete}
+        onDelete={mockOnDelete}
+        onEdit={mockOnEdit}
+      />
+    );
+
+    const editButton = await screen.findByTestId("edit-task-1");
+
+    fireEvent.click(editButton);
+
+    expect(mockOnEdit).toHaveBeenCalledWith(mockTasks[0]);
   });
 });

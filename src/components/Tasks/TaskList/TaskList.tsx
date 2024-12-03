@@ -1,26 +1,52 @@
 import React from "react";
-import styles from "./TaskList.module.css";
 
 interface Task {
   id: string;
   title: string;
+  description?: string;
   completed: boolean;
 }
 
 interface TaskListProps {
   tasks: Task[];
   onComplete: (id: string) => void;
-  onDelete: (id: string) => void;
+  onDelete: (task: Task) => void;
+  onEdit: (task: Task) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, onComplete, onDelete, onEdit }) => {
   return (
-    <ul className={styles.taskList}>
+    <ul data-cy="task-list" data-testid="task-list">
       {tasks.map((task) => (
-        <li key={task.id} className={task.completed ? styles.completed : ""}>
-          <span>{task.title}</span>
-          <button onClick={() => onComplete(task.id)}>Mark as Completed</button>
-          <button onClick={() => onDelete(task.id)}>Delete</button>
+        <li
+          key={task.id}
+          data-cy={`task-list-item-${task.id}`}
+          data-testid={`task-list-item-${task.id}`}
+        >
+          <div>
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => onComplete(task.id)}
+              data-cy={`task-complete-checkbox-${task.id}`}
+              data-testid={`task-complete-checkbox-${task.id}`}
+            />
+            <span>{task.title}</span>
+          </div>
+          <button
+            onClick={() => onEdit(task)}
+            data-cy={`task-edit-button-${task.id}`}
+            data-testid={`task-edit-button-${task.id}`}
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => onDelete(task)}
+            data-cy={`task-delete-button-${task.id}`}
+            data-testid={`task-delete-button-${task.id}`}
+          >
+            Delete
+          </button>
         </li>
       ))}
     </ul>
