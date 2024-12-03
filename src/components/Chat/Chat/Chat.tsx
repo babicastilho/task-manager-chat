@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import styles from './Chat.module.css';
+import React, { useState } from "react";
+import styles from "./Chat.module.css";
+import ChatMessage from "../ChatMessage/ChatMessage";
 
 const Chat = () => {
   const [messages, setMessages] = useState<string[]>([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const sendMessage = () => {
     if (input.trim()) {
-      setMessages((prev) => [...prev, input]);
-      setInput('');
+      setMessages((prevMessages) => [...prevMessages, input]);
+      setInput(""); // Limpar o campo de entrada após o envio
     }
   };
 
   return (
-    <div className={styles.chat}>
-      <div className={styles.messages}>
-        {messages.map((msg, index) => (
-          <div key={index} className={styles.message}>
-            {msg}
-          </div>
+    <div className={styles.chatContainer}>
+      <div className={styles.messagesContainer}>
+        {messages.map((message, index) => (
+          <ChatMessage key={index} message={message} />
         ))}
       </div>
       <div className={styles.inputContainer}>

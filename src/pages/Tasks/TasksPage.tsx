@@ -3,6 +3,7 @@ import Modal from "../../components/Common/Modal/Modal";
 import TaskList from "../../components/Tasks/TaskList/TaskList";
 import TaskForm from "../../components/Tasks/TaskForm/TaskForm";
 import { fetchTasks, saveTask, deleteTask, Task } from "../../services/api";
+import Chat from "../../components/Chat/Chat/Chat";
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -101,16 +102,23 @@ const TasksPage = () => {
         }}
       />
       {showModal && modalType === "edit" && (
-        <Modal
-          isOpen={showModal}
-          title="Edit Task"
-          onClose={closeModal}
-          data-cy="edit-task-modal"
-          data-testid="edit-task-modal"
-        >
-          <TaskForm task={selectedTask} onSave={handleSaveTask} />
-        </Modal>
-      )}
+  <Modal
+    isOpen={showModal}
+    title="Edit Task"
+    onClose={closeModal}
+    data-cy="edit-task-modal"
+    data-testid="edit-task-modal"
+  >
+    <div>
+      <TaskForm task={selectedTask} onSave={handleSaveTask} />
+      <div style={{ marginTop: "1rem", borderTop: "1px solid #ccc", paddingTop: "1rem" }}>
+        <h3>Comments</h3>
+        <Chat />
+      </div>
+    </div>
+  </Modal>
+)}
+
       {showModal && modalType === "add" && (
         <Modal
           isOpen={showModal}
