@@ -1,8 +1,37 @@
-.container {
-  display: flex;
-  flex-direction: column;
+.taskList {
+  list-style: none;
+  padding: 0;
 }
 
-.completed {
+.taskList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.taskList li.completed span {
   text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.taskList button {
+  margin-left: 8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.taskList button:first-of-type {
+  background-color: #4caf50;
+  color: white;
+}
+
+.taskList button:last-of-type {
+  background-color: #f44336;
+  color: white;
 }
