@@ -1,11 +1,11 @@
 .footer {
-  height: 40px; /* Altura fixa */
-  background-color: var(--header-footer-color); /* Fundo adaptável */
+  height: 40px;
+  background-color: var(--secondary-color); 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   font-size: 0.9rem;
-  box-shadow: 0 -2px 4px var(--border-color); /* Sombras variáveis */
-  color: var(--text-color); /* Texto adaptável */
+  box-shadow: 0 -2px 4px var(--border-color); 
+  color: var(--text-color); 
 }

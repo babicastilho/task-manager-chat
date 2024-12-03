@@ -1,7 +1,7 @@
 import React from "react";
 import { useTheme } from "../../../context/ThemeContext";
 import styles from "./Sidebar.module.css";
-import { FaSun } from "react-icons/fa";
+import { FaSun, FaHome, FaTasks } from "react-icons/fa";
 import { BsFillMoonStarsFill } from "react-icons/bs";
 
 interface SidebarProps {
@@ -28,9 +28,27 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         ×
       </button>
 
+      {/* Navigation */}
+      <nav className={styles.nav}>
+        <ul>
+          <li>
+            <a href="/" className={styles.navItem}>
+              <FaHome className={styles.icon} /> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="/tasks" className={styles.navItem}>
+              <FaTasks className={styles.icon} /> Tasks
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <hr />
+
       {/* Theme Toggle Button */}
       <button
-        className={`${styles.actionButton} ${styles.themeButton}`}
+        className={styles.themeButton}
         onClick={toggleTheme}
         data-cy="toggle-theme"
         data-testid="toggle-theme"
@@ -48,21 +66,6 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
           {theme === "light" ? "Light Mode" : "Dark Mode"}
         </span>
       </button>
-
-      {/* Navigation */}
-      <nav>
-        <ul data-cy="nav-list" data-testid="nav-list">
-          <li data-cy="nav-item-dashboard" data-testid="nav-item-dashboard">
-            <a href="/">Dashboard</a>
-          </li>
-          <li data-cy="nav-item-tasks" data-testid="nav-item-tasks">
-            <a href="/tasks">Tasks</a>
-          </li>
-          <li data-cy="nav-item-settings" data-testid="nav-item-settings">
-            <a href="/settings">Settings</a>
-          </li>
-        </ul>
-      </nav>
     </aside>
   );
 };

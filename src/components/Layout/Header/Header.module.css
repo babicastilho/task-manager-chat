@@ -1,6 +1,6 @@
 .header {
   height: 60px;
-  background-color: var(--header-footer-color);
+  background-color: var(--secondary-color);
   color: var(--text-color);
   display: flex;
   align-items: center;
@@ -35,9 +35,9 @@
   background-color: var(--secondary-color);
 }
 
-/* Botão de tema */
+
 .themeButton {
-  display: flex; /* Exibido no Header por padrão */
+  display: flex; 
   align-items: center;
   justify-content: center;
 }
@@ -46,7 +46,7 @@
   background-color: var(--border-color);
 }
 
-/* Esconde o botão de tema no Header em telas pequenas */
+
 @media (max-width: 768px) {
   .themeButton {
     display: none;
