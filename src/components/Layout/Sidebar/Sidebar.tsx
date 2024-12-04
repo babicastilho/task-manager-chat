@@ -50,8 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
               data-testid="nav-item-dashboard" // Testing-library test identifier
               data-cy="nav-item-dashboard" // Cypress test identifier
             >
-              <FaHome className={styles.icon} /> {/* Home icon */}
-              Dashboard
+              <FaHome className={styles.icon} />Dashboard
             </a>
           </li>
           {/* Tasks Navigation Link */}
@@ -62,8 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
               data-testid="nav-item-tasks" // Testing-library test identifier
               data-cy="nav-item-tasks" // Cypress test identifier
             >
-              <FaTasks className={styles.icon} /> {/* Tasks icon */}
-              Tasks
+              <FaTasks className={styles.icon} />Tasks
             </a>
           </li>
         </ul>
