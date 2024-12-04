@@ -1,6 +1,17 @@
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 
+/**
+ * TaskItemProps Interface
+ * Defines the properties for the TaskItem component.
+ * 
+ * @property {string} id - Unique identifier for the task.
+ * @property {string} title - The title of the task.
+ * @property {boolean} completed - Indicates whether the task is completed.
+ * @property {() => void} onEdit - Callback function triggered when the edit button is clicked.
+ * @property {() => void} onComplete - Callback function triggered when the task is marked as completed.
+ * @property {() => void} onDelete - Callback function triggered when the delete button is clicked.
+ */
 interface TaskItemProps {
   id: string;
   title: string;
@@ -10,6 +21,13 @@ interface TaskItemProps {
   onDelete: () => void;
 }
 
+/**
+ * TaskItem Component
+ * Represents a single task item with options to edit, mark as complete, or delete.
+ * 
+ * @param {TaskItemProps} props - Component properties.
+ * @returns {JSX.Element} The rendered task item component.
+ */
 const TaskItem: React.FC<TaskItemProps> = ({
   id,
   title,
@@ -19,7 +37,11 @@ const TaskItem: React.FC<TaskItemProps> = ({
   onDelete,
 }) => {
   return (
-    <div data-cy={`task-item-${id}`} data-testid={`task-item-${id}`}>
+    <div
+      data-cy={`task-item-${id}`}
+      data-testid={`task-item-${id}`}
+    >
+      {/* Checkbox to mark task as completed */}
       <input
         type="checkbox"
         checked={completed}
@@ -27,6 +49,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
         data-cy={`task-checkbox-${id}`}
         data-testid={`task-checkbox-${id}`}
       />
+      
+      {/* Task title, with strikethrough style if completed */}
       <span
         style={{ textDecoration: completed ? "line-through" : "none" }}
         data-cy={`task-title-${id}`}
@@ -34,6 +58,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
       >
         {title}
       </span>
+
+      {/* Button to mark task as completed */}
       <button
         onClick={onComplete}
         data-cy={`task-complete-button-${id}`}
@@ -41,6 +67,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
       >
         Mark as Completed
       </button>
+
+      {/* Button to delete the task */}
       <button
         onClick={onDelete}
         data-cy={`task-delete-button-${id}`}
@@ -48,6 +76,8 @@ const TaskItem: React.FC<TaskItemProps> = ({
       >
         Delete
       </button>
+
+      {/* Button to edit the task */}
       <button
         onClick={onEdit}
         data-cy={`task-edit-button-${id}`}
