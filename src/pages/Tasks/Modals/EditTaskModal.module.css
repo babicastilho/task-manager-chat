@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+}
+
+.chatSection {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border-color, #ccc); 
+  padding-top: 1rem;
+}
+
+.chatTitle {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color, #333); 
+}

@@ -1,0 +1,74 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color, #ccc);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-color, #007bff);
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.4);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button.primary {
+  background-color: var(--primary-button-color, #007bff);
+  color: #ffffff;
+}
+
+.button.primary:hover {
+  background-color: var(--primary-button-hover-color, #0056b3);
+}
+
+.button.secondary {
+  background-color: var(--secondary-button-color, #e0e0e0);
+  color: var(--text-color);
+}
+
+.button.secondary:hover {
+  background-color: var(--secondary-button-hover-color, #cccccc);
+}
+
+.error {
+  color: var(--error-color, #f44336);
+  font-size: 0.9rem;
+}

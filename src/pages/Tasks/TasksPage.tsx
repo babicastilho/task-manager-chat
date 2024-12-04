@@ -1,30 +1,66 @@
 import React, { useState, useEffect } from "react";
-import Modal from "../../components/Common/Modal/Modal";
 import TaskList from "../../components/Tasks/TaskList/TaskList";
-import TaskForm from "../../components/Tasks/TaskForm/TaskForm";
+import {
+  AddTaskModal,
+  EditTaskModal,
+  ConfirmDeleteModal,
+} from "../Tasks/Modals";
 import { fetchTasks, saveTask, deleteTask, Task } from "../../services/api";
-import Chat from "../../components/Chat/Chat/Chat";
+import styles from "./TasksPage.module.css";
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<"edit" | "add" | "delete" | null>(null);
+  const [modalType, setModalType] = useState<"edit" | "add" | "delete" | null>(
+    null
+  );
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
-  // Carregar tarefas da API ao inicializar
+  // Fetch tasks when the component mounts
   useEffect(() => {
     const loadTasks = async () => {
       try {
         const fetchedTasks = await fetchTasks();
         setTasks(fetchedTasks);
-      } catch (err) {
-        setError("Failed to load tasks. Please try again later.");
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
       }
     };
     loadTasks();
   }, []);
 
+  // Save a new or updated task
+  const handleSaveTask = async (task: Task) => {
+    try {
+      const savedTask = await saveTask(task);
+      setTasks((prevTasks) => {
+        // Check if the task already exists in the list
+        const taskExists = prevTasks.some((t) => t.id === savedTask.id);
+        if (taskExists) {
+          // Update the existing task
+          return prevTasks.map((t) => (t.id === savedTask.id ? savedTask : t));
+        }
+        // Add as a new task
+        return [...prevTasks, savedTask];
+      });
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error saving task:", error);
+    }
+  };
+
+  // Delete a task
+  const handleDeleteTask = async (id: string) => {
+    try {
+      await deleteTask(id);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
+  // Mark a task as complete/incomplete
   const handleCompleteTask = (id: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -33,121 +69,79 @@ const TasksPage = () => {
     );
   };
 
-  const handleDeleteTask = async (id: string) => {
-    try {
-      await deleteTask(id);
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-      closeModal();
-    } catch (err) {
-      setError("Failed to delete the task.");
-    }
-  };
-
-  const handleSaveTask = async (task: Task) => {
-    try {
-      if (task.id) {
-        // Atualizar uma tarefa existente
-        const updatedTask = await saveTask(task);
-        setTasks((prevTasks) =>
-          prevTasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)) // Substitui a tarefa existente
-        );
-      } else {
-        // Adicionar uma nova tarefa
-        const newTask = await saveTask({
-          ...task,
-          id: "new-task-id", // Certifique-se de que o ID é consistente
-          completed: false,
-        });
-        setTasks((prevTasks) => [...prevTasks, newTask]);
-      }
-      closeModal();
-    } catch (err) {
-      setError("Failed to save the task.");
-    }
-  };        
-
-  const closeModal = () => {
-    setShowModal(false);
-    setSelectedTask(null);
-    setModalType(null);
-  };
-
   return (
-    <div>
-      <h1>Task List</h1>
-      {/* Exibir erros, se houver */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <button
-        onClick={() => {
-          setModalType("add");
-          setShowModal(true);
-        }}
-        data-cy="add-task-button"
-        data-testid="add-task-button"
+    <div
+      className={styles.container}
+      data-cy="tasks-page"
+      data-testid="tasks-page"
+    >
+      <div
+        className={styles.header}
+        data-cy="tasks-header"
+        data-testid="tasks-header"
       >
-        Add Task
-      </button>
+        <h1
+          className={styles.title}
+          data-cy="tasks-title"
+          data-testid="tasks-title"
+        >
+          Task List
+        </h1>
+        <button
+          className={styles.addTaskButton}
+          data-cy="add-task-button"
+          data-testid="add-task-button"
+          onClick={() => {
+            setModalType("add");
+            setShowModal(true);
+          }}
+        >
+          Add Task
+        </button>
+      </div>
       <TaskList
         tasks={tasks}
         onComplete={handleCompleteTask}
-        onDelete={(task) => {
-          setSelectedTask(task);
-          setModalType("delete");
-          setShowModal(true);
-        }}
         onEdit={(task) => {
           setSelectedTask(task);
           setModalType("edit");
           setShowModal(true);
         }}
+        onDelete={(task) => {
+          setSelectedTask(task);
+          setModalType("delete");
+          setShowModal(true);
+        }}
+        data-cy="task-list"
+        data-testid="task-list"
       />
-      {showModal && modalType === "edit" && (
-  <Modal
-    isOpen={showModal}
-    title="Edit Task"
-    onClose={closeModal}
-    data-cy="edit-task-modal"
-    data-testid="edit-task-modal"
-  >
-    <div>
-      <TaskForm task={selectedTask} onSave={handleSaveTask} />
-      <div style={{ marginTop: "1rem", borderTop: "1px solid #ccc", paddingTop: "1rem" }}>
-        <h3>Comments</h3>
-        <Chat />
-      </div>
-    </div>
-  </Modal>
-)}
-
-      {showModal && modalType === "add" && (
-        <Modal
+      {modalType === "add" && (
+        <AddTaskModal
           isOpen={showModal}
-          title="Add Task"
-          onClose={closeModal}
+          onClose={() => setShowModal(false)}
+          onSave={handleSaveTask}
           data-cy="add-task-modal"
           data-testid="add-task-modal"
-        >
-          <TaskForm onSave={handleSaveTask} />
-        </Modal>
+        />
       )}
-      {showModal && modalType === "delete" && (
-        <Modal
+      {modalType === "edit" && selectedTask && (
+        <EditTaskModal
           isOpen={showModal}
-          title="Confirm Deletion"
-          onClose={closeModal}
+          onClose={() => setShowModal(false)}
+          task={selectedTask}
+          onSave={handleSaveTask}
+          data-cy="edit-task-modal"
+          data-testid="edit-task-modal"
+        />
+      )}
+      {modalType === "delete" && selectedTask && (
+        <ConfirmDeleteModal
+          isOpen={showModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={() => handleDeleteTask(selectedTask.id)}
           data-cy="delete-task-modal"
           data-testid="delete-task-modal"
-        >
-          <p>Are you sure you want to delete this task?</p>
-          <button
-            onClick={() => selectedTask && handleDeleteTask(selectedTask.id)}
-            data-cy="confirm-delete-button"
-            data-testid="confirm-delete-button"
-          >
-            Yes, Delete
-          </button>
-          <button onClick={closeModal}>Cancel</button>
-        </Modal>
+        />
       )}
     </div>
   );
