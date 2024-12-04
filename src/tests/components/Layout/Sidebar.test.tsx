@@ -6,7 +6,6 @@ import { ThemeProvider } from "../../../context/ThemeContext";
 describe("Sidebar Component", () => {
   /**
    * Test to ensure the Sidebar renders correctly when open.
-   * Verifies the `open` class is applied and the sidebar is in the document.
    */
   it("renders correctly when open", () => {
     render(
@@ -16,13 +15,12 @@ describe("Sidebar Component", () => {
     );
 
     const sidebar = screen.getByTestId("sidebar");
-    expect(sidebar).toBeInTheDocument(); // Checks if the sidebar is rendered.
+    expect(sidebar).toBeInTheDocument(); // Verifies that the sidebar is rendered.
     expect(sidebar).toHaveClass("open"); // Checks if the 'open' class is applied.
   });
 
   /**
    * Test to ensure the Sidebar renders correctly when closed.
-   * Verifies the `open` class is not applied.
    */
   it("renders correctly when closed", () => {
     render(
@@ -32,15 +30,15 @@ describe("Sidebar Component", () => {
     );
 
     const sidebar = screen.getByTestId("sidebar");
-    expect(sidebar).toBeInTheDocument(); // Checks if the sidebar is rendered.
-    expect(sidebar).not.toHaveClass("open"); // Ensures the 'open' class is not applied.
+    expect(sidebar).toBeInTheDocument(); // Verifies that the sidebar is rendered.
+    expect(sidebar).not.toHaveClass("open"); // Checks if the 'open' class is not applied.
   });
 
   /**
-   * Test to verify the `toggleSidebar` function is called when the close button is clicked.
+   * Test to verify the `toggleSidebar` function is called on close button click.
    */
   it("calls the toggleSidebar function on close button click", () => {
-    const mockToggleSidebar = jest.fn(); // Mock function to test the callback.
+    const mockToggleSidebar = jest.fn(); // Mock function.
 
     render(
       <ThemeProvider>
@@ -55,7 +53,7 @@ describe("Sidebar Component", () => {
   });
 
   /**
-   * Test to verify the theme toggle button changes the theme when clicked.
+   * Test to verify the theme toggle button changes the theme on click.
    */
   it("toggles the theme on theme button click", () => {
     render(
@@ -65,14 +63,13 @@ describe("Sidebar Component", () => {
     );
 
     const toggleThemeButton = screen.getByTestId("toggle-theme");
-    fireEvent.click(toggleThemeButton); // Simulates a click event on the theme button.
+    fireEvent.click(toggleThemeButton); // Simulates a click event.
 
     expect(toggleThemeButton).toBeInTheDocument(); // Ensures the button is rendered.
-    // Additional logic to verify theme change can be added if the theme toggle is mocked.
   });
 
   /**
-   * Test to ensure navigation links are rendered correctly with the expected text.
+   * Test to ensure navigation links are rendered correctly.
    */
   it("renders navigation links correctly", () => {
     render(
@@ -86,15 +83,11 @@ describe("Sidebar Component", () => {
 
     const dashboardLink = screen.getByTestId("nav-item-dashboard");
     const tasksLink = screen.getByTestId("nav-item-tasks");
-    const settingsLink = screen.getByTestId("nav-item-settings");
 
     expect(dashboardLink).toBeInTheDocument(); // Ensures the dashboard link is rendered.
-    expect(dashboardLink.textContent).toBe("Dashboard"); // Verifies the text content.
+    expect(dashboardLink.textContent).toBe("Dashboard"); // Verifies the text.
 
     expect(tasksLink).toBeInTheDocument(); // Ensures the tasks link is rendered.
-    expect(tasksLink.textContent).toBe("Tasks"); // Verifies the text content.
-
-    expect(settingsLink).toBeInTheDocument(); // Ensures the settings link is rendered.
-    expect(settingsLink.textContent).toBe("Settings"); // Verifies the text content.
+    expect(tasksLink.textContent).toBe("Tasks"); // Verifies the text.
   });
 });

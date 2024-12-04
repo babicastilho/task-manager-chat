@@ -34,13 +34,13 @@ const TasksPage = () => {
     try {
       const savedTask = await saveTask(task);
       setTasks((prevTasks) => {
-        // Verifica se a tarefa já existe na lista
+        // Check if the task already exists in the list
         const taskExists = prevTasks.some((t) => t.id === savedTask.id);
         if (taskExists) {
-          // Atualiza a tarefa existente
+          // Update the existing task
           return prevTasks.map((t) => (t.id === savedTask.id ? savedTask : t));
         }
-        // Adiciona como nova tarefa
+        // Add as a new task
         return [...prevTasks, savedTask];
       });
       setShowModal(false);
@@ -48,7 +48,6 @@ const TasksPage = () => {
       console.error("Error saving task:", error);
     }
   };
-  
 
   // Delete a task
   const handleDeleteTask = async (id: string) => {
@@ -71,11 +70,27 @@ const TasksPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Task List</h1>
+    <div
+      className={styles.container}
+      data-cy="tasks-page"
+      data-testid="tasks-page"
+    >
+      <div
+        className={styles.header}
+        data-cy="tasks-header"
+        data-testid="tasks-header"
+      >
+        <h1
+          className={styles.title}
+          data-cy="tasks-title"
+          data-testid="tasks-title"
+        >
+          Task List
+        </h1>
         <button
           className={styles.addTaskButton}
+          data-cy="add-task-button"
+          data-testid="add-task-button"
           onClick={() => {
             setModalType("add");
             setShowModal(true);
@@ -97,12 +112,16 @@ const TasksPage = () => {
           setModalType("delete");
           setShowModal(true);
         }}
+        data-cy="task-list"
+        data-testid="task-list"
       />
       {modalType === "add" && (
         <AddTaskModal
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onSave={handleSaveTask}
+          data-cy="add-task-modal"
+          data-testid="add-task-modal"
         />
       )}
       {modalType === "edit" && selectedTask && (
@@ -111,6 +130,8 @@ const TasksPage = () => {
           onClose={() => setShowModal(false)}
           task={selectedTask}
           onSave={handleSaveTask}
+          data-cy="edit-task-modal"
+          data-testid="edit-task-modal"
         />
       )}
       {modalType === "delete" && selectedTask && (
@@ -118,6 +139,8 @@ const TasksPage = () => {
           isOpen={showModal}
           onClose={() => setShowModal(false)}
           onConfirm={() => handleDeleteTask(selectedTask.id)}
+          data-cy="delete-task-modal"
+          data-testid="delete-task-modal"
         />
       )}
     </div>

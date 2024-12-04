@@ -29,16 +29,26 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
       </button>
 
       {/* Navigation */}
-      <nav className={styles.nav}>
+      <nav data-testid="nav-list" data-cy="nav-list" className={styles.nav}>
         <ul>
           <li>
-            <a href="/" className={styles.navItem}>
-              <FaHome className={styles.icon} /> Dashboard
+            <a
+              href="/"
+              className={styles.navItem}
+              data-testid="nav-item-dashboard"
+              data-cy="nav-item-dashboard"
+            >
+              <FaHome className={styles.icon} />Dashboard
             </a>
           </li>
           <li>
-            <a href="/tasks" className={styles.navItem}>
-              <FaTasks className={styles.icon} /> Tasks
+            <a
+              href="/tasks"
+              className={styles.navItem}
+              data-testid="nav-item-tasks"
+              data-cy="nav-item-tasks"
+            >
+              <FaTasks className={styles.icon} />Tasks
             </a>
           </li>
         </ul>
