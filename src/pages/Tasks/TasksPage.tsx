@@ -8,15 +8,31 @@ import {
 import { fetchTasks, saveTask, deleteTask, Task } from "../../services/api";
 import styles from "./TasksPage.module.css";
 
+/**
+ * TasksPage Component
+ * This component serves as the main page for managing tasks, 
+ * including listing tasks, adding new tasks, editing existing ones, 
+ * and deleting tasks.
+ */
 const TasksPage = () => {
+  // State for storing the list of tasks
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  // State for controlling the visibility of modals
   const [showModal, setShowModal] = useState(false);
+
+  // State for determining the type of modal to display
   const [modalType, setModalType] = useState<"edit" | "add" | "delete" | null>(
     null
   );
+
+  // State for storing the currently selected task for editing or deletion
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
-  // Fetch tasks when the component mounts
+  /**
+   * Fetches tasks when the component mounts.
+   * Uses the fetchTasks function from the mock API to retrieve tasks.
+   */
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -29,18 +45,20 @@ const TasksPage = () => {
     loadTasks();
   }, []);
 
-  // Save a new or updated task
+  /**
+   * Saves a new or updated task.
+   * If the task exists, updates it; otherwise, adds it as a new task.
+   * 
+   * @param {Task} task - The task to save.
+   */
   const handleSaveTask = async (task: Task) => {
     try {
       const savedTask = await saveTask(task);
       setTasks((prevTasks) => {
-        // Check if the task already exists in the list
         const taskExists = prevTasks.some((t) => t.id === savedTask.id);
         if (taskExists) {
-          // Update the existing task
           return prevTasks.map((t) => (t.id === savedTask.id ? savedTask : t));
         }
-        // Add as a new task
         return [...prevTasks, savedTask];
       });
       setShowModal(false);
@@ -49,7 +67,12 @@ const TasksPage = () => {
     }
   };
 
-  // Delete a task
+  /**
+   * Deletes a task by its ID.
+   * Removes the task from the list after deletion.
+   * 
+   * @param {string} id - The ID of the task to delete.
+   */
   const handleDeleteTask = async (id: string) => {
     try {
       await deleteTask(id);
@@ -60,7 +83,11 @@ const TasksPage = () => {
     }
   };
 
-  // Mark a task as complete/incomplete
+  /**
+   * Toggles the completion status of a task.
+   * 
+   * @param {string} id - The ID of the task to mark as completed or incomplete.
+   */
   const handleCompleteTask = (id: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
@@ -75,6 +102,7 @@ const TasksPage = () => {
       data-cy="tasks-page"
       data-testid="tasks-page"
     >
+      {/* Header Section */}
       <div
         className={styles.header}
         data-cy="tasks-header"
@@ -99,6 +127,8 @@ const TasksPage = () => {
           Add Task
         </button>
       </div>
+
+      {/* Task List Section */}
       <TaskList
         tasks={tasks}
         onComplete={handleCompleteTask}
@@ -115,6 +145,8 @@ const TasksPage = () => {
         data-cy="task-list"
         data-testid="task-list"
       />
+
+      {/* Modals */}
       {modalType === "add" && (
         <AddTaskModal
           isOpen={showModal}
