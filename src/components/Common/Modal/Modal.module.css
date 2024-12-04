@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6); /* Fundo mais escuro */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,13 +12,13 @@
 }
 
 .modal {
-  background: var(--primary-color);
-  color: var(--text-color);
+  background: var(--primary-color, #ffffff); /* Fundo branco como padrão */
+  color: var(--text-color, #333333); /* Texto escuro */
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px; /* Bordas arredondadas mais suaves */
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -26,12 +26,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
+  color: var(--primary-text-color, #2c3e50); /* Azul escuro */
 }
 
 .closeButton {
@@ -39,9 +40,14 @@
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: var(--text-color);
+  color: var(--text-color, #333333);
   display: flex;
   align-items: center;
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: var(--error-color, #f44336); /* Vermelho ao passar o mouse */
 }
 
 .icon {
@@ -50,9 +56,55 @@
 
 .body {
   font-size: 1rem;
+  line-height: 1.6;
+  color: var(--secondary-text-color, #555555); /* Cinza médio */
 }
 
-/* Optional Fade-in Animation */
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  padding: 0.8rem 1.5rem; /* Botões maiores e mais amigáveis */
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button.primary {
+  background-color: var(--primary-button-color, #3498db); /* Azul */
+  color: #ffffff;
+}
+
+.button.primary:hover {
+  background-color: var(--primary-button-hover-color, #2980b9); /* Azul mais escuro */
+}
+
+.button.secondary {
+  background-color: var(--secondary-button-color, #ecf0f1); /* Cinza claro */
+  color: var(--text-color, #333333);
+}
+
+.button.secondary:hover {
+  background-color: var(--secondary-button-hover-color, #bdc3c7); /* Cinza mais escuro */
+}
+
+.button.danger {
+  background-color: var(--error-color, #f44336); /* Vermelho */
+  color: #ffffff;
+}
+
+.button.danger:hover {
+  background-color: var(--error-hover-color, #d32f2f); /* Vermelho mais escuro */
+}
+
+/* Animação suave para entrada do modal */
 @keyframes fadeIn {
   from {
     opacity: 0;
